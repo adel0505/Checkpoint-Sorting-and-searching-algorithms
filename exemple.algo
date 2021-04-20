@@ -1,0 +1,61 @@
+PROCEDURE swap(VAR xp, VAR yp : INTEGER)
+VAR
+   tmp : INTEGER;
+BEGIN
+  tmp := xp;
+  xp := yp;
+  yp := tmp;
+END
+/* *** Bubble sort *** */
+PROCEDURE bubble_sort(VAR tab : ARRAY_OF INTEGER)
+VAR
+   i,j,n : INTEGER;
+BEGIN
+   n := tab.length;
+   FOR i FROM 0 TO n- 1 STEP 1  DO
+       // Last i elements are already in place
+       FOR j  FROM 0 TO n-i-1 STEP 1  DO
+           IF (tab[j] > tab[j+1]) THEN
+               swap(tab[j], tab[j+1])
+           END_IF
+       END_FOR
+   END_FOR
+END
+/* sort by new card */
+PROCEDURE card_sort(VAR tab : ARRAY_OF INTEGER,card :INTEGER)
+VAR
+   i,j : INTEGER;
+BEGIN
+  j := 0;
+  WHILE (j< tab.length) DO
+   IF ( card<tab[j]) THEN
+    FOR i FROM tab.length TO j+1 STEP -1  DO
+        tab[i]:=tab[i-1];
+    END_FOR
+    
+    break;
+   END_IF
+   j := j+1; // update the index
+  END_WHILE
+  tab[j]:=card; 
+END
+
+
+ALGORITHM Insertion_sort
+VAR
+    tab: ARRAY_OF type[50];
+    card,n,i:INTEGER;
+    
+BEGIN
+   tab:={1,9,11,8,5,9,2,3,5,9,3,8,5};
+   bubble_sort(tab);
+   read(n) ;
+   i:=1;
+   WHILE (i<=n) DO
+       READ(card);
+       card_sort(tab,card);
+   END_WHILE
+  
+END
+
+
